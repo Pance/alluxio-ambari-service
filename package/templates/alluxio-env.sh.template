@@ -5,7 +5,7 @@
 # the following variables should be set:
 #
 # - JAVA_HOME, to point to your JAVA installation
-# - ALLUXIO_MASTER_ADDRESS, to bind the master to a different IP address or hostname
+# - ALLUXIO_MASTER_HOSTNAME, to bind the master to a different IP address or hostname
 # - ALLUXIO_UNDERFS_ADDRESS, to set the under filesystem address.
 # - ALLUXIO_WORKER_MEMORY_SIZE, to set how much memory to use (e.g. 1000mb, 2gb) per worker
 # - ALLUXIO_RAM_FOLDER, to set where worker stores in memory data
@@ -79,7 +79,7 @@ if [[ -z "${JAVA_HOME}" ]]; then
 fi
 
 export JAVA="${JAVA_HOME}/bin/java"
-export ALLUXIO_MASTER_ADDRESS=${ALLUXIO_MASTER_ADDRESS:-localhost}
+export ALLUXIO_MASTER_HOSTNAME=${ALLUXIO_MASTER_HOSTNAME:-localhost}
 export ALLUXIO_UNDERFS_ADDRESS=${ALLUXIO_UNDERFS_ADDRESS:-${ALLUXIO_HOME}/underFSStorage}
 #export ALLUXIO_UNDERFS_ADDRESS=${ALLUXIO_UNDERFS_ADDRESS:-hdfs://localhost:9000/alluxio}
 export ALLUXIO_WORKER_MEMORY_SIZE=${ALLUXIO_WORKER_MEMORY_SIZE:-1GB}
@@ -104,7 +104,7 @@ export ALLUXIO_JAVA_OPTS+="
   -Dalluxio.worker.tieredstore.level0.dirs.quota=${ALLUXIO_WORKER_MEMORY_SIZE}
   -Dalluxio.underfs.address=${ALLUXIO_UNDERFS_ADDRESS}
   -Dalluxio.worker.memory.size=${ALLUXIO_WORKER_MEMORY_SIZE}
-  -Dalluxio.master.hostname=${ALLUXIO_MASTER_ADDRESS}
+  -Dalluxio.master.hostname=${ALLUXIO_MASTER_HOSTNAME}
   -Dorg.apache.jasper.compiler.disablejsr199=true
   -Djava.net.preferIPv4Stack=true
 "
