@@ -27,15 +27,6 @@ worker_mem = config['configurations']['alluxio-env']['alluxio.worker.memory']
 stack_name = default("/hostLevelParams/stack_name", None)
 stack_version = format_stack_version(default("/commandParams/version", None))
 
-# hadoop params
-namenode_address = None
-if 'dfs.namenode.rpc-address' in config['configurations']['hdfs-site']:
-  namenode_rpcaddress = config['configurations']['hdfs-site']['dfs.namenode.rpc-address']
-  namenode_address = format("hdfs://{namenode_rpcaddress}")
-else:
-  namenode_address = config['configurations']['core-site']['fs.defaultFS']
-
-
 
 # Set install dir
 cmd = "/usr/bin/hdp-select versions"
