@@ -33,7 +33,7 @@
   <property>
     <name>alluxio.archive.file</name>
     <description>alluxio archive file</description>
-    <value>alluxio-1.0.1-bin.tar.gz</value>
+    <value>alluxio-1.5.0-hadoop-2.6-bin.tar.gz</value>
   </property>
 
   <property require-input="true">
