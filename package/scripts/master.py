@@ -16,7 +16,7 @@ class Master(Script):
     self.install_packages(env)
 
     # Create the base_dir/alluxio dir
-    cmd = '/bin/mkdir' + ' -p ' + params.base_dir 
+    cmd = '/bin/mkdir' + ' -p ' + params.base_dir
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
 
@@ -53,19 +53,19 @@ class Master(Script):
   #Call start.sh to start the service
   def start(self, env):
     import params
-    
+
     #call format
     cmd = params.base_dir + '/bin/alluxio ' + 'format'
-      
+
     Execute('echo "Running cmd: ' + cmd + '"')    
     Execute(cmd)
-    
+
     #execute the startup script
     cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'master'
-      
+
     Execute('echo "Running cmd: ' + cmd + '"')    
     Execute(cmd)
-    
+
     # Create pid file - note check_process_status expects a SINGLE int in the file
     cmd = "mkdir -p " + params.pid_dir
     Execute(cmd)
@@ -76,19 +76,19 @@ class Master(Script):
   #Called to stop the service using alluxio provided stop
   def stop(self, env):
     import params
-    
+
     #execure the startup script
     cmd = params.base_dir + '/bin/alluxio-stop.sh'
-      
-    Execute('echo "Running cmd: ' + cmd + '"')    
+
+    Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
-      	
+
   #Called to get status of the service using the pidfile
   def status(self, env):
     import params
-    
+
     pid_file = format("{params.pid_dir}/AlluxioMaster.pid")
-    check_process_status(pid_file)    
+    check_process_status(pid_file)
 
 if __name__ == "__main__":
   Master().execute()

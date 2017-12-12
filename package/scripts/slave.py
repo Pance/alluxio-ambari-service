@@ -54,13 +54,13 @@ class Slave(Script):
     
     #Mount ramfs
     cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'worker' + ' Mount'
-    
-    Execute('echo "Running cmd: ' + cmd + '"')    
+    Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
 
     # Create pid file - note check_process_status expects a SINGLE int in the file
     cmd = "mkdir -p " + params.pid_dir
     Execute(cmd)
+
     cmd = "echo `ps -A -o pid,command | grep -i \"[j]ava\" | grep AlluxioWorker | awk '{print $1}'`> " + params.pid_dir + "/AlluxioWorker.pid"
     Execute(cmd)
     pid_file = format("{params.pid_dir}/AlluxioWorker.pid")
@@ -69,17 +69,15 @@ class Slave(Script):
   #Called to stop the service using the pidfile
   def stop(self, env):
     import params
-    
-    #execure the startup script
+    #execute the stop script
     cmd = params.base_dir + '/bin/alluxio-stop.sh'
-      
+
     Execute('echo "Running cmd: ' + cmd + '"')    
     Execute(cmd)
-      	
+
   #Check pid file using Ambari check_process_status
   def status(self, env):
     import params
-    
     pid_file = format("{params.pid_dir}/AlluxioWorker.pid")
     check_process_status(pid_file)   
 
