@@ -15,7 +15,8 @@ tmp_dir = Script.get_tmp_dir()
 alluxio_archive_file = config['configurations']['alluxio-env']['alluxio.archive.file']
 
 # alluxio master address
-alluxio_master = config['clusterHostInfo']['alluxio_master_hosts'] 
+if 'clusterHostInfo' in config:
+  alluxio_master = config['clusterHostInfo']['alluxio_master_hosts']
 
 # alluxio underfs address
 underfs_addr = config['configurations']['alluxio-env']['alluxio.underfs.address']
