@@ -42,11 +42,18 @@ class Slave(Script):
     alluxio_config_dir = params.base_dir + '/conf/'
     alluxio_libexec_dir = params.base_dir + '/libexec/'
 
-    File(format("{alluxio_config_dir}/alluxio-env.sh"),
+    File(format("{alluxio_config_dir}/alluxio-site.properties"),
           owner='root',
           group='root',
-          content=Template('alluxio-env.sh.template', conf_dir=alluxio_config_dir)
+          content=Template('alluxio-site.properties.template', conf_dir=alluxio_config_dir)
     )
+    # Need to configure alluxio-site
+    alluxio_site = format("{alluxio_config_dir}/alluxio-site.properties")
+    # master hostname
+    replace_cmd = format("sed -i 's/# alluxio.master.hostname=localhost/alluxio.master.hostname={params.alluxio_master[0]}/'")
+    cmd = replace_cmd + ' ' + alluxio_site
+    Execute('echo "Running cmd: ' + cmd + '"')
+    Execute(cmd)
 
   #Call start.sh to start the service
   def start(self, env):
