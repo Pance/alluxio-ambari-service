@@ -58,7 +58,7 @@ class Slave(Script):
   #Call start.sh to start the service
   def start(self, env):
     import params
-    
+
     #Mount ramfs
     cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'worker' + ' Mount'
     Execute('echo "Running cmd: ' + cmd + '"')
@@ -86,8 +86,7 @@ class Slave(Script):
   def status(self, env):
     import params
     pid_file = format("{params.pid_dir}/AlluxioWorker.pid")
-    check_process_status(pid_file)   
-
+    check_process_status(pid_file)
 
 if __name__ == "__main__":
   Slave().execute()
