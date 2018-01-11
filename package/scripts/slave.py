@@ -67,8 +67,11 @@ class Slave(Script):
   def start(self, env):
     import params
 
-    #Mount ramfs
-    cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'worker' + ' Mount'
+    # Create the log dir
+    cmd = "mkdir -p " + params.log_dir
+    Execute(cmd)
+
+    cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'worker' + ' NoMount'
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
 
@@ -83,7 +86,7 @@ class Slave(Script):
   def stop(self, env):
     import params
     #execute the stop script
-    cmd = params.base_dir + '/bin/alluxio-stop.sh'
+    cmd = params.base_dir + '/bin/alluxio-stop.sh local'
 
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)

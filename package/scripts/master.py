@@ -67,6 +67,10 @@ class Master(Script):
   def start(self, env):
     import params
 
+    # Create the log dir
+    cmd = "mkdir -p " + params.log_dir
+    Execute(cmd)
+
     #call format
     cmd = params.base_dir + '/bin/alluxio ' + 'format'
     Execute('echo "Running cmd: ' + cmd + '"')
@@ -87,9 +91,8 @@ class Master(Script):
   #Called to stop the service using alluxio provided stop
   def stop(self, env):
     import params
-
-    #execure the startup script
-    cmd = params.base_dir + '/bin/alluxio-stop.sh'
+    #execute the startup script
+    cmd = params.base_dir + '/bin/alluxio-stop.sh local'
 
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
