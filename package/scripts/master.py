@@ -10,8 +10,8 @@ class Master(Script):
 
   #Call setup.sh to install the service
   def install(self, env):
-  
     import params
+
     # Install packages listed in metainfo.xml
     self.install_packages(env)
 
@@ -27,6 +27,7 @@ class Master(Script):
 
     cmd = '/bin/ln' + ' -s ' + params.base_dir + ' ' + params.usr_base + 'current/alluxio'
     Execute('echo "Running ' + cmd + '"')
+
     try:
       Execute(cmd)
     except:
@@ -36,7 +37,6 @@ class Master(Script):
 
   def configure(self, env):
     import params
-
     env.set_params(params)
 
     alluxio_config_dir = params.base_dir + '/conf/'
@@ -48,13 +48,20 @@ class Master(Script):
           mode=0700,
           content=Template('alluxio-site.properties.template', conf_dir=alluxio_config_dir)
     )
-    # Need to configure alluxio-site
-    alluxio_site = format("{alluxio_config_dir}/alluxio-site.properties")
-    # master hostname
-    replace_cmd = format("sed -i 's/# alluxio.master.hostname=localhost/alluxio.master.hostname={params.alluxio_master[0]}/'")
-    cmd = replace_cmd + ' ' + alluxio_site
-    Execute('echo "Running cmd: ' + cmd + '"')
-    Execute(cmd)
+    # Need to configure the alluxio-site file
+    alluxio_site_file = format("{alluxio_config_dir}/alluxio-site.properties")
+    alluxio_site = params.config['configurations']['alluxio-env']
+    def configure_value_in_alluxio_site_file(property_name, property_value):
+      replace_cmd = format("sed -i 's|^{property_name}=.*$|{property_name}={property_value}|'")
+      cmd = replace_cmd + ' ' + alluxio_site_file
+      Execute('echo "Running cmd: ' + cmd + '"')
+      Execute(cmd)
+
+    # Configure the alluxio master hostname
+    configure_value_in_alluxio_site_file("alluxio.master.hostname", params.alluxio_master[0])
+
+    for k, v in alluxio_site.items():
+      configure_value_in_alluxio_site_file(k,v)
 
   #Call start.sh to start the service
   def start(self, env):
@@ -62,13 +69,11 @@ class Master(Script):
 
     #call format
     cmd = params.base_dir + '/bin/alluxio ' + 'format'
-
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
 
     #execute the startup script
     cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'master'
-
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
 
