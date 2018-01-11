@@ -21,7 +21,7 @@ if 'clusterHostInfo' in config:
 # alluxio underfs address
 underfs_addr = config['configurations']['alluxio-env']['alluxio.underfs.address']
 
-# alluxio worker memory alotment 
+# alluxio worker memory allotment
 worker_mem = config['configurations']['alluxio-env']['alluxio.worker.memory']
 
 # Find current stack and version to push agent files to
