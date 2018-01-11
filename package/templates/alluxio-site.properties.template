@@ -13,7 +13,10 @@
 # Details about all configuration properties http://www.alluxio.org/documentation/en/Configuration-Settings.html
 
 # Common properties
-# alluxio.master.hostname=localhost
+alluxio.master.hostname=master
+alluxio.debug=true
+alluxio.integration.master.resource.cpu=2
+alluxio.integration.master.resource.mem=4096MB
 # alluxio.underfs.address=${alluxio.work.dir}/underFSStorage
 
 # Security properties
@@ -21,11 +24,23 @@
 # alluxio.security.authentication.type=SIMPLE
 
 # Worker properties
-# alluxio.worker.memory.size=1GB
-# alluxio.worker.tieredstore.levels=1
-# alluxio.worker.tieredstore.level0.alias=MEM
-# alluxio.worker.tieredstore.level0.dirs.path=/mnt/ramdisk
+alluxio.integration.worker.resource.cpu=2
+alluxio.integration.worker.resource.mem=2048MB
+alluxio.worker.tieredstore.reserver.enabled=true
+alluxio.worker.tieredstore.levels=1
+alluxio.worker.tieredstore.level0.alias=SSD
+alluxio.worker.tieredstore.level0.dirs.path=worker_ssd_dir
+alluxio.worker.tieredstore.level0.dirs.quota=worker_ssd
+
+# s3a config
+alluxio.underfs.s3a.inherit_acl=false
 
 # User properties
-# alluxio.user.file.readtype.default=CACHE_PROMOTE
-# alluxio.user.file.writetype.default=MUST_CACHE
+alluxio.user.file.readtype.default=CACHE
+alluxio.user.file.writetype.default=MUST_CACHE
+alluxio.user.block.size.bytes.default=256MB
+alluxio.user.file.cache.partially.read.block=false
+alluxio.security.authorization.permission.enabled=false
+
+# S3 mount point share with everyone
+alluxio.underfs.object.store.mount.shared.publicly=true
