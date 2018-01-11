@@ -43,15 +43,119 @@
   </property>
 
   <property>
+    <name>alluxio_user</name>
+    <value>alluxio</value>
+    <property-type>USER</property-type>
+    <description>Alluxio Service Account User</description>
+  </property>
+
+  <property>
+    <name>alluxio.debug</name>
+    <description>Log debug info</description>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>alluxio.user.file.readtype.default</name>
+    <description>Default read type when creating Alluxio files</description>
+    <value>CACHE</value>
+  </property>
+
+  <property>
+    <name>alluxio.user.file.writetype.default</name>
+    <description>Default write type when creating Alluxio files</description>
+    <value>MUST_CACHE</value>
+  </property>
+
+  <property>
+    <name>alluxio.user.block.size.bytes.default</name>
+    <description>Default block size for Alluxio files</description>
+    <value>256MB</value>
+  </property>
+
+  <property>
+    <name>alluxio.user.file.cache.partially.read.block</name>
+    <description>When read type is CACHE_PROMOTE or CACHE and this property is set to true, the entire block will be cached by Alluxio space even if the client only reads a part of this block</description>
+    <value>false</value>
+  </property>
+
+  <property>
+    <name>alluxio.security.authorization.permission.enabled</name>
+    <description>Whether to enable access control based on file permission.</description>
+    <value>false</value>
+  </property>
+
+  <property>
+    <name>alluxio.underfs.object.store.mount.shared.publicly</name>
+    <description>Whether or not to share object storage under storage system mounted point with all Alluxio users</description>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>alluxio.underfs.s3a.inherit_acl</name>
+    <description>Optionally disable this to disable inheriting bucket ACLs on objects.</description>
+    <value>false</value>
+  </property>
+
+  <!-- Master Configuration -->
+  <property>
+    <name>alluxio.integration.master.resource.cpu</name>
+    <description>CPU resource in terms of number of cores required to run an Alluxio master</description>
+    <value>2</value>
+  </property>
+
+  <property>
+    <name>alluxio.integration.master.resource.mem</name>
+    <description>Memory resource required to run an Alluxio master</description>
+    <value>4096MB</value>
+  </property>
+
+  <!-- Worker Configuration -->
+  <property>
     <name>alluxio.worker.memory</name>
     <description>Alluxio Worker Memory</description>
     <value>2GB</value>
   </property>
 
   <property>
-    <name>alluxio_user</name>
-    <value>alluxio</value>
-    <property-type>USER</property-type>
-    <description>Alluxio Service Account User</description>
+    <name>alluxio.integration.worker.resource.cpu</name>
+    <description>CPU resource in terms of number of cores required to run an Alluxio worker</description>
+    <value>2</value>
+  </property>
+
+  <property>
+    <name>alluxio.integration.worker.resource.mem</name>
+    <description>Memory resource required to run an Alluxio worker</description>
+    <value>2048MB</value>
+  </property>
+
+  <property>
+    <name>alluxio.worker.tieredstore.reserver.enabled</name>
+    <description>Whether to enable tiered store reserver service or not.</description>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>alluxio.worker.tieredstore.levels</name>
+    <description>Whether to enable tiered store reserver service or not.</description>
+    <value>1</value>
+  </property>
+
+  <property>
+    <name>alluxio.worker.tieredstore.level0.alias</name>
+    <description>The alias of the highest storage tier on this worker. It must match one of the global storage tiers from the master configuration.</description>
+    <value>MEM</value>
+  </property>
+
+  <property>
+    <name>alluxio.worker.tieredstore.level0.dirs.path</name>
+    <description>The path of storage directory path for the top storage layer.</description>
+    <value>/alluxio/fs</value>
+  </property>
+
+  <property>
+    <name>alluxio.worker.tieredstore.level0.dirs.quota</name>
+    <description>The capacity of the top storage layer.</description>
+    <value>1600GB</value>
   </property>
 </configuration>
