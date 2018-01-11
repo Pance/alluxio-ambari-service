@@ -24,14 +24,30 @@ class Slave(Script):
     cmd = '/bin/tar' + ' -zxf ' + params.alluxio_package_dir + 'files/' +  params.alluxio_archive_file + ' --strip 1 -C ' + params.base_dir
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
-   
-    cmd = '/bin/ln' + ' -s ' + params.base_dir  + ' ' + params.usr_base + 'current/'
+
+    cmd = '/bin/ln' + ' -s ' + params.base_dir + ' ' + params.usr_base + 'current/alluxio'
     Execute('echo "Running ' + cmd + '"')
 
     try:
       Execute(cmd)
     except:
       pass
+
+    # TODO don't set this up twice; consider skipping all of this if zfs is already installed
+    # Create two roughly equal-sized partitions from a device
+    Execute('echo -e "n\np\n1\n\n1855467725\nn\np\n2\n\n\n\nw\n" | fdisk /dev/nvme0n1')
+    # install ZFS
+    Execute('sed -i "s/releasever=latest/releasever=2017.03/g" /etc/yum.conf')
+    Execute('yum install -y "kernel-devel-uname-r == $(uname -r)"')
+    Execute('yum install -y http://download.zfsonlinux.org/epel/zfs-release.el6.noarch.rpm')
+    Execute('yum install -y zfs')
+    Execute('modprobe zfs')
+    # create a zpool with a mirror
+    Execute('zpool create -f alluxio mirror nvme0n1p1 nvme0n1p2')
+    # create the filesystem to give to Alluxio
+    Execute('zfs create alluxio/fs')
+    Execute('zfs set compression=off alluxio/fs')
+    Execute('chmod -R 777 /alluxio/fs')
 
     self.configure(env)
 
