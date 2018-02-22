@@ -1,0 +1,46 @@
+{
+  "ALLUXIO": {
+    "ALLUXIO_MASTER": [
+      {
+        "scope": "HOST",
+        "enabled": true,
+        "description": "This is an alert that checks if the Master and Proxy services are running.",
+        "name": "alluxio_master_status",
+        "interval": 1,
+        "label": "Alluxio Master Status",
+        "source": {
+          "path": "HDP/2.6/services/ALLUXIO/package/alerts/alluxio_master_status.py",
+          "type": "SCRIPT",
+          "parameters": []
+        }
+      }
+    ],
+    "ALLUXIO_SLAVE": [
+      {
+        "service_name": "ALLUXIO",
+        "scope": "HOST",
+        "enabled": true,
+        "description": "This is an alert that checks if the Worker service is running and has enough free disk space.",
+        "name": "alluxio_worker_status",
+        "component_name": "ALLUXIO_SLAVE",
+        "interval": 1,
+        "label": "Alluxio Worker Status",
+        "source": {
+          "path": "HDP/2.6/services/ALLUXIO/package/alerts/alluxio_worker_status.py",
+          "type": "SCRIPT",
+          "parameters": [
+            {
+              "display_name": "Critical",
+              "name": "disk.used.critical.threshold",
+              "value": 0.8,
+              "threshold": "CRITICAL",
+              "units": "%",
+              "type": "PERCENT",
+              "description": "The percent of disk space consumed before a critical alert is triggered."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
