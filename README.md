@@ -14,8 +14,8 @@ Install, start/stop, status, service check functional
 # Clone the service deployer
 git clone https://github.com/chuyqa/alluxio-ambari-service /var/lib/ambari-server/resources/stacks/HDP/2.6/services/ALLUXIO
 
-#git has a 100mb file limit, download alluxio source to your stack dir
-wget http://alluxio.org/downloads/files/1.5.0/alluxio-1.5.0-hadoop-2.6-bin.tar.gz -P /var/lib/ambari-server/resources/stacks/HDP/2.6/services/ALLUXIO/package/files 
+# Acquire the alluxio source and copy to your stack dir
+aws s3 cp s3://bdap-private-artifacts/third-party/alluxio-1.5.0-hadoop-2.6-bin.tar.gz /var/lib/ambari-server/resources/stacks/HDP/2.6/services/ALLUXIO/package/files/
 
 ambari-server restart
 
