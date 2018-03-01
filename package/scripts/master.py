@@ -76,8 +76,12 @@ class Master(Script):
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
 
-    #execute the startup script
+    #Start the Master process
     cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'master'
+    Execute('echo "Running cmd: ' + cmd + '"')
+    Execute(cmd)
+    #Start the Proxy server process
+    cmd = params.base_dir + '/bin/alluxio-start.sh ' + 'proxy'
     Execute('echo "Running cmd: ' + cmd + '"')
     Execute(cmd)
 
@@ -91,7 +95,7 @@ class Master(Script):
   #Called to stop the service using alluxio provided stop
   def stop(self, env):
     import params
-    #execute the startup script
+    # Invoke the stop script to stop the local Master and Proxy processes
     cmd = params.base_dir + '/bin/alluxio-stop.sh local'
 
     Execute('echo "Running cmd: ' + cmd + '"')
