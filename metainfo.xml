@@ -51,5 +51,9 @@
               <config-type>hdfs-site</config-type>
             </configuration-dependencies>
         </service>
+        <requiredServices>
+            <service>YARN</service>
+            <service>HIVE</service>
+        </requiredServices>
     </services>
 </metainfo>
