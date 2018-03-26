@@ -12,6 +12,13 @@ class Master(Script):
   def install(self, env):
     import params
 
+    # First, download the Alluxio artifact
+    destination_directory = '/var/lib/ambari-server/resources/stacks/HDP/2.6/services/ALLUXIO/package/files/'
+    cmd = '/bin/mkdir -p ' + destination_directory
+    Execute('echo "Running ' + cmd + '"')
+    cmd = '/usr/bin/wget -nc -p ' + params.alluxio_artifact + ' -P '+ destination_directory
+    Execute('echo "Running ' + cmd + '"')
+
     # Install packages listed in metainfo.xml
     self.install_packages(env)
 

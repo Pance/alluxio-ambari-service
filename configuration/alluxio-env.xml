@@ -163,4 +163,9 @@
     <description>A device in /dev/ to format with ZFS to use as storage.</description>
     <value>nvme0n1</value>
   </property>
+  <property>
+    <name>alluxio.artifact.download</name>
+    <description>A link to download the Alluxio artifact from the internet.</description>
+    <value>https://s3.amazonaws.com/bdap-private-artifacts/third-party/alluxio-1.5.0-hadoop-2.6-bin.tar.gz</value>
+  </property>
 </configuration>

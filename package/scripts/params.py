@@ -43,3 +43,5 @@ log_dir = config['configurations']['alluxio-env']['alluxio.log.dir']
 # alluxio log dir
 pid_dir = config['configurations']['alluxio-env']['alluxio.pid.dir']
 
+# alluxio artifact
+alluxio_artifact = config['configurations']['alluxio-env']['alluxio.artifact.download']
