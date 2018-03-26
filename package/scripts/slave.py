@@ -12,13 +12,18 @@ class Slave(Script):
   #Call setup.sh to install the service
   def install(self, env):
     import params
-
     # First, download the Alluxio artifact
-    destination_directory = '/var/lib/ambari-server/resources/stacks/HDP/2.6/services/ALLUXIO/package/files/'
+    destination_directory = '/var/lib/ambari-agent/cache/stacks/HDP/2.6/services/ALLUXIO/package/files/'
     cmd = '/bin/mkdir -p ' + destination_directory
     Execute('echo "Running ' + cmd + '"')
-    cmd = '/usr/bin/wget -nc -p ' + params.alluxio_artifact + ' -P '+ destination_directory
+    Execute(cmd)
+    # download and move the file to the correct directory
+    cmd = '/usr/bin/wget -nc ' + params.alluxio_artifact
     Execute('echo "Running ' + cmd + '"')
+    Execute(cmd)
+    cmd = '/bin/cp alluxio* ' + destination_directory
+    Execute('echo "Running ' + cmd + '"')
+    Execute(cmd)
 
     # Install packages listed in metainfo.xml
     self.install_packages(env)
@@ -28,6 +33,7 @@ class Slave(Script):
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
 
+    #extract archive and symlink dirs
     cmd = '/bin/tar' + ' -zxf ' + params.alluxio_package_dir + 'files/' +  params.alluxio_archive_file + ' --strip 1 -C ' + params.base_dir
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
