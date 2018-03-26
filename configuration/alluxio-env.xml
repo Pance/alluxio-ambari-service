@@ -36,7 +36,7 @@
     <value>alluxio-1.5.0-hadoop-2.6-bin.tar.gz</value>
   </property>
 
-  <property require-input="true">
+  <property>
     <name>alluxio.underfs.address</name>
     <description>Alluxio UnderFS Address</description>
     <value>hdfs://0.0.0.0:8020</value>
