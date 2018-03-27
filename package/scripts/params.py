@@ -30,9 +30,8 @@ stack_version = format_stack_version(default("/commandParams/version", None))
 
 
 # Set install dir
-cmd = "/usr/bin/hdp-select versions"
 usr_base = "/usr/hdp/"
-base_dir = usr_base + commands.getoutput(cmd) + "/alluxio/"
+base_dir = usr_base + "current" + "/alluxio/"
   
 # Alluxio archive on agent nodes
 alluxio_package_dir = "/var/lib/ambari-agent/cache/stacks/" + stack_name + "/" + stack_version[:3] + "/services/ALLUXIO/package/"
