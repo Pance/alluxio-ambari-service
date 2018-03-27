@@ -50,10 +50,10 @@
               <config-type>core-site</config-type>
               <config-type>hdfs-site</config-type>
             </configuration-dependencies>
+            <requiredServices>
+                <service>YARN</service>
+                <service>HIVE</service>
+            </requiredServices>
         </service>
-        <requiredServices>
-            <service>YARN</service>
-            <service>HIVE</service>
-        </requiredServices>
     </services>
 </metainfo>
