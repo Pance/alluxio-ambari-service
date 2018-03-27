@@ -14,14 +14,14 @@ class Master(Script):
 
     # First, download the Alluxio artifact
     destination_directory = '/var/lib/ambari-agent/cache/stacks/HDP/2.6/services/ALLUXIO/package/files/'
-    cmd = '/bin/mkdir -p ' + destination_directory
+    cmd = '/bin/mkdir -p ' + params.alluxio_package_dir + '/files/'
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
     # download and move the file to the correct directory
     cmd = '/usr/bin/wget -nc ' + params.alluxio_artifact
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
-    cmd = '/bin/cp alluxio* ' + destination_directory
+    cmd = '/bin/cp alluxio* ' + params.alluxio_package_dir + '/files/'
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
 

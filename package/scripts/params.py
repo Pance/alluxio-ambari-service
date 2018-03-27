@@ -26,12 +26,12 @@ worker_mem = config['configurations']['alluxio-env']['alluxio.worker.memory']
 
 # Find current stack and version to push agent files to
 stack_name = default("/hostLevelParams/stack_name", None)
-stack_version = format_stack_version(default("/commandParams/version", None))
+stack_version = format_stack_version(default("/commandParams/version", "2.6"))
 
 
 # Set install dir
 usr_base = "/usr/hdp/"
-base_dir = usr_base + "current" + "/alluxio/"
+base_dir = usr_base + stack_version[:3] + "/alluxio/"
   
 # Alluxio archive on agent nodes
 alluxio_package_dir = "/var/lib/ambari-agent/cache/stacks/" + stack_name + "/" + stack_version[:3] + "/services/ALLUXIO/package/"
