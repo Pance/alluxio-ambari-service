@@ -13,7 +13,6 @@ class Master(Script):
     import params
 
     # First, download the Alluxio artifact
-    destination_directory = '/var/lib/ambari-agent/cache/stacks/HDP/2.6/services/ALLUXIO/package/files/'
     cmd = '/bin/mkdir -p ' + params.alluxio_package_dir + '/files/'
     Execute('echo "Running ' + cmd + '"')
     Execute(cmd)
