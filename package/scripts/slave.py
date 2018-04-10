@@ -54,8 +54,7 @@ class Slave(Script):
     #Execute('echo -e "n\np\n1\n\n1855467725\nn\np\n2\n\n\n\nw\n" | fdisk /dev/nvme0n1')
     Execute('echo -e "n\np\n1\n\n1855467725\nn\np\n2\n\n\n\nw\n" | fdisk /dev/' + zfs_device)
     # install ZFS
-    Execute('sed -i "s/releasever=latest/releasever=2017.03/g" /etc/yum.conf')
-    Execute('yum install -y "kernel-devel-uname-r == $(uname -r)"')
+    Execute('yum install -y kernel-devel')
     Execute('yum install -y http://download.zfsonlinux.org/epel/zfs-release.el6.noarch.rpm')
     Execute('yum install -y zfs')
     Execute('modprobe zfs')
