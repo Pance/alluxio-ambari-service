@@ -57,7 +57,6 @@ class Slave(Script):
     Execute('yum install -y kernel-devel')
     Execute('yum install -y http://download.zfsonlinux.org/epel/zfs-release.el6.noarch.rpm')
     Execute('yum install -y zfs')
-    Execute('modprobe zfs')
     # create a zpool with a mirror
     zfs_mirror_1 = zfs_device + "p1"
     zfs_mirror_2 = zfs_device + "p2"
