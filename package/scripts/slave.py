@@ -46,26 +46,6 @@ class Slave(Script):
     except:
       pass
 
-    # TODO don't set this up twice; consider skipping all of this if zfs is already installed
-    # Create two roughly equal-sized partitions from a device
-    # TODO get this disk name from alluxio params
-    # TODO implement an alluxio param for ZFS?
-    zfs_device = params.config['configurations']['alluxio-env']['alluxio.worker.zfs.device']
-    #Execute('echo -e "n\np\n1\n\n1855467725\nn\np\n2\n\n\n\nw\n" | fdisk /dev/nvme0n1')
-    Execute('echo -e "n\np\n1\n\n1855467725\nn\np\n2\n\n\n\nw\n" | fdisk /dev/' + zfs_device)
-    # install ZFS
-    Execute('yum install -y kernel-devel')
-    Execute('yum install -y http://download.zfsonlinux.org/epel/zfs-release.el6.noarch.rpm')
-    Execute('yum install -y zfs')
-    # create a zpool with a mirror
-    zfs_mirror_1 = zfs_device + "p1"
-    zfs_mirror_2 = zfs_device + "p2"
-    Execute('zpool create -f alluxio mirror ' + zfs_mirror_1 + ' ' + zfs_mirror_2)
-    # create the filesystem to give to Alluxio
-    Execute('zfs create alluxio/fs')
-    Execute('zfs set compression=off alluxio/fs')
-    Execute('chmod -R 777 /alluxio/fs')
-
     self.configure(env)
 
   def configure(self, env):
